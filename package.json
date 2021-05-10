@@ -1,0 +1,29 @@
+{
+  "name": "fileshare",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "DBAD-v1.1",
+  "dependencies": {
+    "dotenv": "^9.0.2",
+    "formidable": "^1.2.2"
+  },
+  "description": "A simple private file sharing server",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yonle/FileShare.git"
+  },
+  "author": "Yonle",
+  "private": false,
+  "bugs": {
+    "url": "https://github.com/Yonle/FileShare/issues"
+  },
+  "homepage": "https://github.com/Yonle/FileShare#readme",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "file",
+    "fileshare"
+  ]
+}

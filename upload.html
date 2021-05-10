@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+ <head>
+  <title>File Sharing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+ </head>
+ <body>
+  <form action="upload" method="post" enctype="multipart/form-data">
+   <h1>Credentials (required)</h1>
+   <ul>
+    <li>Username: <input class="credentials username" placeholder="Username" name="username" required></li>
+    <li>Password: <input class="credentials password" type="password" placeholder="Password (Hidden)" name="password" required></li>
+    <li><input type="checkbox" id="RememberMe"> Remember Me (Requires Javascript)</li>
+   </ul>
+   <h2>Files</h2>
+   <input class="files" type="file" name="file" required><br><br>
+   <button id="submit" style="position: absolute; width: 100%; left: 0; right: 0; bottom: 0;" type="submit"><h1>Upload</h1></button>
+  </form>
+  <style>
+	input {
+		border: solid 5px;
+		border-radius: 5px;
+	}
+
+	.credentials {
+		border: solid 5px;
+		border-radius: 5px;
+		width: 70%;
+		height: 3vh;
+	}
+
+	.password {
+		background: white;
+		color: black;
+	}
+	
+	.password:hover {
+		background: black;
+		color: black;
+	}
+
+	.files {
+		position: absolute; 
+		width: 90%; 
+		left: 0; 
+		right: 0; 
+	}
+  </style>
+  <script>
+	document.getElementsByClassName("username")["0"].value = localStorage.getItem("username");
+	document.getElementsByClassName("password")["0"].value = localStorage.getItem("password");
+
+	if (document.getElementsByClassName("username")["0"].value && document.getElementsByClassName("password")["0"].value) document.getElementById("RememberMe").checked = true;
+	document.getElementById("submit").onclick = () => {
+		if (!document.getElementById("RememberMe").checked || !document.getElementsByClassName("username")["0"].value || !document.getElementsByClassName("password")["0"].value) return;
+		if (typeof localStorage != "object") return alert("Your browser does not support localStorage.\n\nSo Remember Me Checkbox will not work in this browser.");
+		localStorage.setItem("username", document.getElementsByClassName("username")["0"].value);
+		localStorage.setItem("password", document.getElementsByClassName("password")["0"].value);
+	};
+
+  </script>
+ </body>
+</html>
