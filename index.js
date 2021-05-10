@@ -37,7 +37,7 @@ const server = http.createServer(function (req, res) {
       	return res.end("Invalid Credentials.");
       }
       let oldpath = files.file.path;
-      let newpath = `${process.cwd()}/${uploadDir}/${Math.random().toString(36).slice(5)}.${files.file.name.split(".")[files.file.name.split(".").length-1]}`;
+      let newpath = `${uploadDir}/${Math.random().toString(36).slice(5)}.${files.file.name.split(".")[files.file.name.split(".").length-1]}`;
       if (!fs.existsSync(uploadDir)) {
       	try {
       		fs.mkdirSync(uploadDir);
