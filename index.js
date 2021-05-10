@@ -1,4 +1,4 @@
-require("dptenv").config();
+require("dotenv").config();
 const http = require('http');
 const { promisify } = require("util");
 const readline = require("readline");
