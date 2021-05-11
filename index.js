@@ -2,7 +2,7 @@ require("dotenv").config();
 const http = require('http');
 const formidable = require('formidable');
 const fs = require('fs');
-const uploadDir = process.env.UPLOAD_DIRECTORY || process.env.TMPDIR || "/tmp";
+const uploadDir = process.env.UPLOAD_DIRECTORY || require("os").tmpdir();
 const owner = {
 	username: process.env.USERNAME,
 	password: process.env.PASSWORD
@@ -28,7 +28,10 @@ const server = http.createServer(function (req, res) {
   // Because we don't need query, So we just make it as normal request.
   req.url = req.url.split("?")[0];
   if (req.url == '/upload' && req.method === "POST") {
-    let form = new formidable.IncomingForm();
+    let form = new formidable.IncomingForm({
+    	uploadDir,
+    	allowEmptyFiles: false,
+    });
     form.parse(req, function (err, fields, files) {
       if (!fields.password || !fields.username || fields.username != owner.username || fields.password != owner.password) {
       	res.statusCode = 401;
