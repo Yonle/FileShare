@@ -1,0 +1,80 @@
+const express = require("express");
+//const cors = require("cors"); //no need
+const fs = require('fs');
+const readdir = require('fs-readdir-with-file-types');
+const nodeDiskInfo = require('node-disk-info');
+const http = require("http");
+const { promisify } = require('util');
+const config = require("../index.js");
+
+const api = {};
+
+// api functions
+api.get__readFile = promisify(fs.readFile);
+api.post__writeFile = promisify(fs.writeFile);
+api.post__rename = promisify(fs.rename);
+api.get__disk = () => nodeDiskInfo.getDiskInfo()
+api.get__getFile = { resolve(req, res, path){ res.sendFile(path) } }
+api.post__mkdir = promisify(fs.mkdir);
+api.delete__unlink = promisify(fs.unlink);
+api.delete__rmdir = promisify(fs.rmdir);
+api.get__readdir = async function () {
+    const res = await readdir(...arguments);
+    return res.map(function (e) {
+        e.isDirectory = e.isDirectory();
+        e.isFile = e.isFile();
+        return e
+    })
+};
+const app = express();
+app.use(express.json());
+app.use(express.static("filemanager/public"));
+// to enable other site to use this api... (remove if you dont want that)
+//app.use(cors());
+
+// returns the availeable api functions
+app.get("/ApiPath.js", function (req, res) {
+    res.header("content-type", "application/javascript")
+        .send(`export default ${JSON.stringify(Object.keys(api))}`)
+});
+
+app.get("/auth.js", function (req, res) {
+    res.header("content-type", "application/javascript")
+        .send(`export default ${config.password?true:false}`)
+})
+
+app.get("/password/:password", function (req, res) {
+    res.header("content-type", "application/javascript")
+        .send(`export default ${req.params.password==config.password}`)
+})
+
+Object.keys(api).forEach(function (name) {
+    const method = name.split("__")[0];
+    const path = name.split("__")[1];
+    app[method]("/api/fs/" + path, async function (req, res) {
+        let { args = "[]", password = "" } = req[method == "post" ? "body" : "query"];
+        if(config.password) {
+            if(password !== config.password) return res.send({
+                success:false,
+                code:1,
+                message:"Unaurthorized"
+            })
+        }
+        try {
+            // gets and returns the data requested by the client
+            args = JSON.parse(args);
+            args[0] = (config.base || __dirname) + args[0];
+            if(path == "rename") args[1] = (config.base || __dirname) + args[1];
+            let data;
+            if(typeof api[name] == "function") data = await api[name](...args)
+                else return await api[name].resolve(req, res, ...args);
+            return res.send({ success: true, data });
+        } catch (e) {
+
+            // returns the error
+            return res.send({ success: false, error: e.toString() });
+        }
+    })
+});
+
+module.exports = app;

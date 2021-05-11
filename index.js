@@ -2,7 +2,7 @@ require("dotenv").config();
 const http = require('http');
 const formidable = require('formidable');
 const fs = require('fs');
-const app = require('./Nodejs-Filemanager');
+const app = require('./filemanager');
 const uploadDir = process.env.UPLOAD_DIRECTORY || require("os").tmpdir();
 const owner = {
 	username: process.env.USERNAME,
