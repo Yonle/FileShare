@@ -5,13 +5,19 @@
   "license": "DBAD-v1.1",
   "dependencies": {
     "dotenv": "^9.0.2",
-    "formidable": "^1.2.2"
+    "express": "^4.17.1",
+    "file-metadata": "^1.0.0",
+    "formidable": "^1.2.2",
+    "fs-readdir-with-file-types": "^1.0.2",
+    "glob": "^7.1.6",
+    "node-disk-info": "^1.1.0",
+    "node-fetch": "^2.6.1",
+    "read-metadata": "^1.0.0",
+    "socket.io": "^3.0.4",
+    "util": "^0.12.3"
   },
   "description": "A simple private file sharing server",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Yonle/FileShare.git"
-  },
+  "repository": "git+https://github.com/Yonle/FileShare.git",
   "author": "Yonle",
   "private": false,
   "bugs": {
