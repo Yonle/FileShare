@@ -86,6 +86,6 @@ const server = http.createServer(function (req, res) {
 });
 
 const listener = server.listen(process.env.PORT || 3000, () => {
-	console.log(`[File] Now Hosting ${fs.readdirSync(uploadDir).filter(name => !name.endsWith(".type")).length} files.`);
+	console.log(`[File] Now Hosting ${fs.readdirSync(uploadDir, { withFileTypes: true }).filter(item => item.isFile && !item.name.endsWith(".type")).map(item => item.name).length} files.`);
 	console.log("Your app is now listening on port", listener.address().port);
 });
