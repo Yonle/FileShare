@@ -33,7 +33,7 @@ const server = http.createServer(function (req, res) {
     	allowEmptyFiles: false,
     });
     form.parse(req, function (err, fields, files) {
-      if (!fields.password || !fields.username || fields.username != owner.username || fields.password != owner.password) {
+      if (!fields.password || !fields.username || fields.username != owner.username || fields.password != owner.password || !files.file) {
       	res.statusCode = 401;
       	return res.end("Invalid Credentials.");
       }
