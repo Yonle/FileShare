@@ -47,9 +47,8 @@ const server = http.createServer(function (req, res) {
       	}
       }
       let path = newpath.split("/");
-      let filename = path.filter(u => u == path[path.length-1])[0].split(".");
-      let name = filename.filter(u => u != filename[filename.length-1])[0];
-      fs.writeFileSync(`${uploadDir}/${name}.type`, files.file.type);
+      let filename = path.filter(u => u == path[path.length-1])[0]
+      fs.writeFileSync(`${uploadDir}/${filename}.type`, files.file.type);
       fs.rename(oldpath, newpath, function (err) {
         if (err) {
         	res.status(500);
@@ -61,11 +60,11 @@ const server = http.createServer(function (req, res) {
         res.end(`http://${req.headers["host"]}/u/${newpath.split("/")[newpath.split("/").length-1]}`);
       });
  	});
-  } else if (req.url.startsWith("/u/") && !req.url.endsWith(".type") && req.method === "GET") {
+  } else if (req.url.startsWith("/u/") && req.method === "GET") {
 		try {
   			let filename = req.url.split("/u/").filter(u => u.length > 0)[0];
   			try {
-  				let type = fs.readFileSync(`${uploadDir}/${filename.split(".").filter(u => u != filename.split(".")[filename.split(".").length-1])[0]}.type`, "utf8");
+  				let type = fs.readFileSync(`${uploadDir}/${filename}.type`, "utf8");
 				res.setHeader("content-type", type);
 				fs.createReadStream(`${uploadDir}/${filename}`).pipe(res);
 			} catch (error) {
