@@ -61,7 +61,7 @@ const server = http.createServer(function (req, res) {
         res.end(`http://${req.headers["host"]}/u/${newpath.split("/")[newpath.split("/").length-1]}`);
       });
  	});
-  } else if (req.url.startsWith("/u/") && req.method === "GET") {
+  } else if (req.url.startsWith("/u/") && !req.url.endsWith(".type") && req.method === "GET") {
 		try {
   			let filename = req.url.split("/u/").filter(u => u.length > 0)[0];
   			try {
