@@ -30,7 +30,7 @@ npm start
 ```
 
 # Credit
-The modified File editor can found [here](https://github.com/Yonle/Nodejs-Filemanager). The original source can also founded [here](https://github.com/Hoodgail/Nodejs-Filemanager)
+The modified File Manager can found [here](https://github.com/Yonle/Nodejs-Filemanager). The original source of File Manager can also found [here](https://github.com/Hoodgail/Nodejs-Filemanager)
 
 # Community
 - [Discord](https://dsc.gg/yonle)
