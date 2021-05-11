@@ -67,7 +67,7 @@ const server = http.createServer(function (req, res) {
   			try {
   				let type = fs.readFileSync(`${uploadDir}/${filename.split(".").filter(u => u != filename.split(".")[filename.split(".").length-1])[0]}.type`, "utf8");
 				res.setHeader("content-type", type);
-				res.end(fs.readFileSync(`${uploadDir}/${filename}`));
+				fs.createReadStream(`${uploadDir}/${filename}`).pipe(res);
 			} catch (error) {
 				res.writeHead(404, { "content-type": "text/html" });
 				res.write("<div style=\"font-family: helvetica;\" align=\"center\"><h1>404</h1>");
