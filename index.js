@@ -31,7 +31,7 @@ const server = http.createServer(function (req, res) {
     let form = new formidable.IncomingForm();
     form.parse(req, function (err, fields, files) {
       if (!fields.password || !fields.username || fields.username != owner.username || fields.password != owner.password) {
-      	res.status(401);
+      	res.statusCode = 401;
       	return res.end("Invalid Credentials.");
       }
       let oldpath = files.file.path;
@@ -40,7 +40,7 @@ const server = http.createServer(function (req, res) {
       	try {
       		fs.mkdirSync(uploadDir);
       	} catch (error) {
-      		res.status(500);
+      		res.statusCode = 500;
       		res.end("Something went wrong. Try again later.");
       		console.error(error);
       		return;
@@ -51,7 +51,7 @@ const server = http.createServer(function (req, res) {
       fs.writeFileSync(`${uploadDir}/${filename}.type`, files.file.type);
       fs.rename(oldpath, newpath, function (err) {
         if (err) {
-        	res.status(500);
+        	res.statusCode = 500;
         	res.end("Something went wrong. Try again later.");
         	return console.error(err);
         }
