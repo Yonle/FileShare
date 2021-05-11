@@ -26,7 +26,6 @@
   "homepage": "https://github.com/Yonle/FileShare#readme",
   "devDependencies": {},
   "scripts": {
-  	"prepublish": "rm -rf Nodejs-Filemanager && git clone https://github.com/Yonle/Nodejs-Filemanager Nodejs-Filemanager",
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
