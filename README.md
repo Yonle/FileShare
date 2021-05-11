@@ -7,6 +7,7 @@
 - Only you the one who can upload
 - Everyone can see your files by sharing the Files URL
 - Lightweight, And minimalist
+- File Manager (With Editor!)
 
 # Installation
 ```bash
@@ -27,6 +28,9 @@ Rename `.env.example` as `.env`, And fill these Fields:
 ```bash
 npm start
 ```
+
+# Credit
+The modified File editor can found [here](https://github.com/Yonle/Nodejs-Filemanager). The original source can also founded [here](https://github.com/Hoodgail/Nodejs-Filemanager)
 
 # Community
 - [Discord](https://dsc.gg/yonle)
