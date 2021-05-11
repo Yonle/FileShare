@@ -70,7 +70,7 @@ const server = http.createServer(function (req, res) {
 				fs.createReadStream(`${uploadDir}/${filename}`).pipe(res);
 			} catch (error) {
 				res.writeHead(404, { "content-type": "text/html" });
-				res.write("<div align=\"center\"><h1>404</h1>");
+				res.write("<div style=\"font-family: helvetica;\" align=\"center\"><h1>404</h1>");
 				res.write("<h3>File not found</h3>");
 				res.end("<p>A file that you tried to access is unavailable, Or removed by Website Administrator.</p></div>");
 			}
