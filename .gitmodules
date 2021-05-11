@@ -1,0 +1,3 @@
+[submodule "Nodejs-Filemanager"]
+	path = Nodejs-Filemanager
+	url = https://github.com/Yonle/Nodejs-Filemanager
