@@ -2,11 +2,16 @@ require("dotenv").config();
 const http = require('http');
 const formidable = require('formidable');
 const fs = require('fs');
+const app = require('./Nodejs-Filemanager');
 const uploadDir = process.env.UPLOAD_DIRECTORY || require("os").tmpdir();
 const owner = {
 	username: process.env.USERNAME,
 	password: process.env.PASSWORD
 }
+
+// For filemanager
+module.exports.base = uploadDir;
+module.exports.password = owner.password;
 
 if (!owner.username || !owner.password) {
 	console.error("One of your credentials (username or password) is missing.");
@@ -24,7 +29,12 @@ if (!fs.existsSync(uploadDir)) {
 	}
 }
 
-const server = http.createServer(function (req, res) {
+const server = http.createServer(function (req, res, next) {
+  if (req.url.startsWith("/manager") || req.url.startsWith("/vs") || req.url.startsWith("/ApiPath.js") || req.url.startsWith("/api") || req.url.startsWith("/password")) {
+	if (req.url.startsWith("/manager")) req.url = req.url.slice(8);
+	if (!req.url) req.url = "/";
+  	return app(req, res, next);
+  }
   // Because we don't need query, So we just make it as normal request.
   req.url = req.url.split("?")[0];
   if (req.url == '/upload' && req.method === "POST") {
