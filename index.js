@@ -30,6 +30,14 @@ if (!fs.existsSync(uploadDir)) {
 }
 
 const server = http.createServer(function (req, res, next) {
+  if (!fs.existsSync(uploadDir)) {
+  	try {
+  		fs.mkdirSync(uploadDir);
+  	} catch (error) {
+  		console.error(error);
+  	}
+  }
+
   if (req.url.startsWith("/manager") || req.url.startsWith("/vs") || req.url.startsWith("/ApiPath.js") || req.url.startsWith("/api") || req.url.startsWith("/password")) {
 	if (req.url.startsWith("/manager")) req.url = req.url.slice(8);
 	if (!req.url) req.url = "/";
